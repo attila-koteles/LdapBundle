@@ -84,7 +84,7 @@ security:
   providers:
     ldap:
       id: imag_ldap.security.user.provider
-                
+
   encoders:
     IMAG\LdapBundle\User\LdapUser: plaintext
 
@@ -97,22 +97,21 @@ security:
 
 imag_ldap:
   client:
-    host: your.host.foo
+    host: ldap://0.0.0.0
     port: 389
-#    version: 3 # Optional
-#    username: foo # Optional
-#    password: bar # Optional
+    version: 3
+    referrals_enabled: 0
+    username: <adminuser-fulldomainname>
+    password: <adminpassword>
 
   user:
-    base_dn: ou=people,dc=host,dc=foo
-#    filter: (&(foo=bar)(ObjectClass=Person)) #Optional
-    name_attribute: uid
+    base_dn: DC=<domain-part-1>,DC=<domain-part-2>
+    name_attribute: samaccountname
+
   role:
-    base_dn: ou=group, dc=host, dc=foo
-#    filter: (ou=group) #Optional
+    base_dn: DC=<domain-part-1>,DC=<domain-part-2>
     name_attribute: cn
     user_attribute: member
-    user_id: [ dn or username ]
 ```
 
 **You need to configure the parameters under the imag_ldap section.**
@@ -136,7 +135,7 @@ imag_ldap:
 # app/config/config.yml
 
 imports:
-  - { resource: ../../src/IMAG/LdapBundle/Resources/config/security.yml }
+  - { resource: ../../vendor/bundles/IMAG/LdapBundle/Resources/config/security.yml }  
 ```
 
 ### Import routing
